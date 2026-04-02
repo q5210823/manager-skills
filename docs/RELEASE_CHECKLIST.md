@@ -15,6 +15,30 @@
 
 ---
 
+## GitHub 仓库信息建议
+
+### About 描述
+
+中文：
+
+`把用户当成明星来经营的 AI 经纪人 Skill，负责拆目标、定任务、催进度、做复盘。`
+
+English:
+
+`An AI manager Skill that treats the user like a rising star: plans goals, assigns tasks, pushes progress, and runs reviews.`
+
+### Topics 建议
+
+1. `agentskills`
+2. `openclaw`
+3. `productivity`
+4. `goal-management`
+5. `ai-agent`
+6. `personal-brand`
+7. `task-planning`
+
+---
+
 ## 发布前要确认
 
 1. 仓库根目录包含可安装的 `SKILL.md`
