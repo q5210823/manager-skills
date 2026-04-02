@@ -13,7 +13,7 @@
 Provide your long-term goal, current identity, current resources, active projects, and daily time budget,<br>
 and generate an AI manager Skill that plans, pushes, reviews, and applies pressure when needed.
 
-[Install](#install) · [Usage](#usage) · [Features](#features) · [Project Structure](#project-structure) · [Publishing](#publishing) · [中文](README.md)
+[Install](#install) · [Usage](#usage) · [Demo](#demo) · [Features](#features) · [Project Structure](#project-structure) · [中文](README.md)
 
 </div>
 
@@ -157,6 +157,48 @@ High-pressure mode is allowed to be sharper, but still bounded:
 
 ---
 
+## Demo
+
+> Input:
+>
+> `Build a clearly positioned personal brand within 6 months and land the first batch of paid collaborations`
+>
+> `Full-time product manager, currently starting a content brand`
+>
+> `Industry experience, writing skills, basic video editing, and an early audience`
+
+**Scenario 1: Daily Brief**
+
+```text
+manager.skills ❯ No grandstanding today. Only 3 actions that actually move the needle:
+
+                1. Lock your one-line positioning statement
+                2. Finish and publish one piece of content
+                3. Make your consulting intro page good enough to send out
+
+                No visible output means no real progress.
+```
+
+**Scenario 2: Delay Correction**
+
+```text
+User            ❯ I spent the whole day reading materials, so it wasn't completely wasted
+
+manager.skills ❯ That was preparation, not progress.
+                If it did not become a publishable asset, a shipped result, or a commercial move,
+                it was just a more respectable-looking delay.
+```
+
+**Scenario 3: Review**
+
+```text
+manager.skills ❯ The biggest mistake today was not that you failed to finish.
+                It was putting the most valuable action at the very end.
+                Produce first, organize later. Get the order wrong and the rhythm collapses.
+```
+
+---
+
 ## Features
 
 ### Generated Skill Structure
@@ -189,17 +231,6 @@ Execution flow:
 
 ---
 
-## Who It Is For
-
-Best suited for users who:
-
-1. have a serious long-term goal
-2. want to build a personal brand, body of work, or career momentum
-3. struggle with consistency and need external pressure
-4. want to be managed, not just reminded
-
----
-
 ## Project Structure
 
 This repository root is itself an installable skill directory:
@@ -217,40 +248,3 @@ manager-skills/
 ├── web/
 └── LICENSE
 ```
-
----
-
-## Example Data and Privacy
-
-The repo only keeps example data:
-
-1. `managers/example_artist_manager/`
-2. `managers/sample_manager_input.json`
-
-Do not replace them with real personal data and commit directly.
-
-Real generated manager directories should stay uncommitted.
-
----
-
-## Publishing
-
-Recommended repository names:
-
-1. `manager-skills`
-2. `manager.skills`
-
-Recommended display names:
-
-1. Chinese: `经纪人.skills`
-2. English: `manager.skills`
-
-The repository root is already ready to be installed directly by OpenClaw / AgentSkills style workflows.
-
----
-
-## Notes
-
-1. V1 validates the manager role and execution loop, not a full productivity platform
-2. A few generic collectors from the original base still remain, but they are not the main V1 path
-3. Better source inputs lead to much stronger generated managers
