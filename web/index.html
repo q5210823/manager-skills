@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>经纪人.skills</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">manager.skills</p>
+        <h1>先把你当成项目，再把你做成结果。</h1>
+        <p class="lede">
+          填 5 项基础信息，生成一个会拆任务、盯进度、做复盘的经纪人。
+        </p>
+      </section>
+
+      <section class="panel form-panel">
+        <form id="manager-form">
+          <div class="grid">
+            <label class="field">
+              <span>经纪人名字</span>
+              <input name="name" placeholder="王牌经纪人" value="王牌经纪人" />
+            </label>
+            <label class="field">
+              <span>Slug（可选）</span>
+              <input name="slug" placeholder="manager" />
+            </label>
+          </div>
+
+          <label class="field">
+            <span>长期目标</span>
+            <textarea name="long_term_goal" rows="4" required></textarea>
+          </label>
+
+          <label class="field">
+            <span>当前身份</span>
+            <textarea name="current_identity" rows="3" required></textarea>
+          </label>
+
+          <label class="field">
+            <span>当前资源</span>
+            <textarea name="current_resources" rows="3" required></textarea>
+          </label>
+
+          <label class="field">
+            <span>当前正在做的项目</span>
+            <textarea name="current_projects" rows="3" required></textarea>
+          </label>
+
+          <label class="field">
+            <span>每天可投入时间</span>
+            <textarea name="daily_time_budget" rows="2" required></textarea>
+          </label>
+
+          <fieldset class="style-switch">
+            <legend>督导风格</legend>
+            <label><input type="radio" name="style" value="gentle" /> 温和</label>
+            <label><input type="radio" name="style" value="professional" checked /> 职业</label>
+            <label><input type="radio" name="style" value="high-pressure" /> 高压</label>
+          </fieldset>
+
+          <div class="actions">
+            <button type="submit" id="submit-button">生成经纪人</button>
+            <button type="button" id="fill-sample" class="ghost">填充示例</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel result-panel">
+        <div class="result-head">
+          <h2>生成结果</h2>
+          <p id="status-text">还没开工。先把目标交出来。</p>
+        </div>
+        <pre id="result-box">等待提交…</pre>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

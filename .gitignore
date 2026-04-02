@@ -1,0 +1,31 @@
+# Generated manager skills (user data, not committed)
+managers/
+!managers/example_artist_manager/
+!managers/example_artist_manager/meta.json
+!managers/example_artist_manager/persona.md
+!managers/example_artist_manager/work.md
+!managers/sample_manager_input.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Config with credentials
+~/.manager-skill/
+
+# Playwright browser data
+playwright-data/
+
+# Temp files
+/tmp/feishu_*.txt
+/tmp/email_*.txt
+/tmp/dingtalk_*.txt
+knowledge/
+
+# OS
+.DS_Store
+Thumbs.db
