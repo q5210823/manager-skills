@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "manager.skills",
+  "version": "0.1.0",
+  "description": "Build an artist profile, phase plan, and daily schedule preview in a Chrome extension popup.",
+  "action": {
+    "default_title": "manager.skills",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage"
+  ]
+}

@@ -12,7 +12,7 @@
         <p class="eyebrow">manager.skills</p>
         <h1>先把你当成项目，再把你做成结果。</h1>
         <p class="lede">
-          填 5 项基础信息，生成一个会拆任务、盯进度、做复盘的经纪人。
+          先建立艺人档案，再生成阶段冲刺、按小时通告和问责风格。
         </p>
       </section>
 
@@ -30,35 +30,55 @@
           </div>
 
           <label class="field">
-            <span>长期目标</span>
+            <span>长期目标（基础人设）</span>
             <textarea name="long_term_goal" rows="4" required></textarea>
           </label>
 
           <label class="field">
-            <span>当前身份</span>
-            <textarea name="current_identity" rows="3" required></textarea>
+            <span>已有技能</span>
+            <textarea name="skill_tree_existing" rows="3" required></textarea>
           </label>
 
           <label class="field">
-            <span>当前资源</span>
-            <textarea name="current_resources" rows="3" required></textarea>
+            <span>待解锁技能</span>
+            <textarea name="skill_tree_unlock" rows="3" required></textarea>
           </label>
 
           <label class="field">
-            <span>当前正在做的项目</span>
-            <textarea name="current_projects" rows="3" required></textarea>
+            <span>资源网络</span>
+            <textarea name="resource_network" rows="3" required></textarea>
           </label>
 
           <label class="field">
-            <span>每天可投入时间</span>
-            <textarea name="daily_time_budget" rows="2" required></textarea>
+            <span>性格标签</span>
+            <textarea name="personality_tags" rows="3" required></textarea>
+          </label>
+
+          <div class="grid">
+            <label class="field">
+              <span>第一阶段</span>
+              <select name="phase_duration">
+                <option value="7天">7 天</option>
+                <option value="30天" selected>30 天</option>
+                <option value="90天">90 天</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>每日精力值</span>
+              <input name="daily_energy_hours" placeholder="工作日 3 小时，周末 5 小时" required />
+            </label>
+          </div>
+
+          <label class="field">
+            <span>可投入时间段</span>
+            <textarea name="time_blocks" rows="2" placeholder="工作日 20:00-23:00；周末 10:00-12:00, 14:00-17:00" required></textarea>
           </label>
 
           <fieldset class="style-switch">
-            <legend>督导风格</legend>
-            <label><input type="radio" name="style" value="gentle" /> 温和</label>
-            <label><input type="radio" name="style" value="professional" checked /> 职业</label>
-            <label><input type="radio" name="style" value="high-pressure" /> 高压</label>
+            <legend>PUA 引擎模式</legend>
+            <label><input type="radio" name="style" value="strict" checked /> 严师模式</label>
+            <label><input type="radio" name="style" value="sarcastic" /> 毒舌模式</label>
+            <label><input type="radio" name="style" value="hype" /> 鸡汤模式</label>
           </fieldset>
 
           <div class="actions">

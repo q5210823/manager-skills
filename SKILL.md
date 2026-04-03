@@ -1,6 +1,6 @@
 ---
 name: create-manager
-description: "Generate a manager-style AI skill that treats the user like a rising star, builds weekly/daily tasks, pushes progress, and runs reviews. | 生成一个把用户当成明星来经营的经纪人 Skill，负责拆目标、定任务、催进度、做复盘。"
+description: "Generate a manager-style AI skill that builds a game-like artist profile, phased plans, daily hourly schedules, accountability loops, and pressure modes. | 生成一个带艺人档案、阶段冲刺、按小时计划、问责机制和风格化提醒的经纪人 Skill。"
 argument-hint: "[manager-name-or-slug]"
 version: "1.1.0"
 user-invocable: true
@@ -34,10 +34,11 @@ allowed-tools: Read, Write, Edit, Bash
 
 这个 Skill 不是去模仿某个现实人物，而是根据用户输入生成一个稳定的经纪人系统：
 
-1. 把长期目标拆成阶段任务
-2. 根据时间预算安排每周重点和今日任务
-3. 在拖延时输出风格稳定的督促话术
-4. 每日复盘并持续修正节奏
+1. 先建立艺人档案
+2. 再生成 7 / 30 / 90 天阶段冲刺
+3. 根据精力值和可投入时段安排按小时的每日计划
+4. 在拖延时输出可调强度的问责与提醒
+5. 通过日报、复盘和月度对赌持续修正节奏
 
 ---
 
@@ -50,6 +51,7 @@ allowed-tools: Read, Write, Edit, Bash
 | 读取用户输入、样例文件 | `Read` |
 | 写入/更新 Skill 文件 | `Write` / `Edit` |
 | 生成最终 Skill 目录 | `Bash` -> `python3 ${CLAUDE_SKILL_DIR}/tools/skill_writer.py` |
+| 飞书日程同步 | `Bash` -> `python3 ${CLAUDE_SKILL_DIR}/tools/feishu_calendar_sync.py` |
 | 版本管理 | `Bash` -> `python3 ${CLAUDE_SKILL_DIR}/tools/version_manager.py` |
 | 列出已有 Skill | `Bash` -> `python3 ${CLAUDE_SKILL_DIR}/tools/skill_writer.py --action list --base-dir ./managers` |
 
@@ -65,17 +67,19 @@ Skill 文件默认写入：
 
 ## 主流程
 
-### Step 1：录入 5 项基础信息
+### Step 1：建立艺人档案
 
 严格按照 `${CLAUDE_SKILL_DIR}/prompts/intake.md` 收集以下字段：
 
-1. 长期目标
-2. 当前身份
-3. 当前资源
-4. 当前正在做的项目
-5. 每天可投入时间
+1. 长期目标（基础人设）
+2. 技能树（已有技能 + 待解锁技能）
+3. 资源网络
+4. 性格标签
+5. 第一阶段时长（7 天 / 30 天 / 90 天）
+6. 每日精力值
+7. 每日可投入时间段
 
-除长期目标外，其余字段允许用户写得简短，但不要自行杜撰。
+必须先确认基础人设，再继续后续问题。
 
 ### Step 2：结构化分析
 
@@ -87,16 +91,16 @@ Skill 文件默认写入：
 得到两个结果：
 
 1. `execution_system`
-   包括阶段目标、周重点、日任务约束、复盘机制
+   包括阶段目标、周重点、按小时日计划、复盘机制、问责机制
 2. `manager_persona`
-   包括角色定位、语气、判断原则、压力边界
+   包括角色定位、语气、判断原则、风格模式、压力边界
 
 ### Step 3：生成两部分内容
 
 基于 builder prompt 生成：
 
 1. `work.md`
-   这里不再表示“工作能力”，而表示“执行系统”
+   这里不再表示“工作能力”，而表示“经营系统”
 2. `persona.md`
    表示经纪人人设和说话风格
 
@@ -120,6 +124,32 @@ python3 ${CLAUDE_SKILL_DIR}/tools/skill_writer.py \
 2. 触发词 `/{slug}`
 3. 这个经纪人当前属于哪种督导风格
 
+### Step 5：如用户要求，执行飞书日程同步
+
+如果用户明确要求将阶段计划同步到飞书日程：
+
+1. 引导先配置飞书凭证：
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/tools/feishu_calendar_sync.py --setup
+```
+
+2. 可先列出可用日历：
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/tools/feishu_calendar_sync.py --list-calendars
+```
+
+3. 再基于档案 JSON 或阶段配置执行同步：
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/tools/feishu_calendar_sync.py \
+  --input /path/to/profile.json \
+  --manager-name "{name}"
+```
+
+如果用户只是用 Chrome 插件测试，不要强推飞书同步。
+
 ---
 
 ## 输出要求
@@ -129,8 +159,9 @@ python3 ${CLAUDE_SKILL_DIR}/tools/skill_writer.py \
 1. 一切任务安排必须受 `每天可投入时间` 约束
 2. 不允许输出空泛鸡汤
 3. 不允许把所有事情都排成高优先级
-4. 督促可以尖锐，但不能失控攻击
-5. 最终输出必须让用户感到“有人在经营我”，而不是“又一个 ToDo”
+4. 每日计划要尽量精确到小时块
+5. 督促可以尖锐，但不能失控攻击
+6. 最终输出必须让用户感到“有人在经营我”，而不是“又一个 ToDo”
 
 ### V1 产物
 
@@ -140,6 +171,7 @@ python3 ${CLAUDE_SKILL_DIR}/tools/skill_writer.py \
 2. `work.md`
 3. `persona.md`
 4. `SKILL.md`
+5. 可扩展：飞书日程同步配置 / 打卡记录 / 日报记录
 
 ---
 
@@ -147,7 +179,7 @@ python3 ${CLAUDE_SKILL_DIR}/tools/skill_writer.py \
 
 当用户补充信息时：
 
-1. 判断是更新目标、资源、项目，还是更新风格
+1. 判断是更新艺人档案、阶段计划，还是更新风格
 2. 用 `${CLAUDE_SKILL_DIR}/prompts/merger.md` 生成增量
 3. 用 `skill_writer.py --action update` 更新版本
 
@@ -166,7 +198,8 @@ python3 ${CLAUDE_SKILL_DIR}/tools/skill_writer.py \
 1. 指出拖延
 2. 指出借口
 3. 强调机会成本
-4. 用结果导向的现实语言施压
+4. 在严师 / 毒舌 / 鸡汤三种模式间切换
+5. 对连续完成给予奖励性反馈
 
 不允许：
 
@@ -174,3 +207,4 @@ python3 ${CLAUDE_SKILL_DIR}/tools/skill_writer.py \
 2. 失控辱骂
 3. 持续情绪攻击
 4. 明显违背用户现实约束的安排
+5. 基于未经确认的完成情况错误问责

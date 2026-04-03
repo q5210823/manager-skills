@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>manager.skills</title>
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">manager.skills</p>
+        <h1>先立艺人档案，再排通告。</h1>
+        <p class="lede">Chrome 插件版先做基础测试：录入、预览、保存草稿、导出 JSON。</p>
+      </section>
+
+      <form id="manager-form" class="panel form-panel">
+        <label class="field">
+          <span>经纪人名字</span>
+          <input name="name" placeholder="王牌经纪人" value="王牌经纪人" />
+        </label>
+
+        <label class="field">
+          <span>长期目标（基础人设）</span>
+          <textarea name="long_term_goal" rows="3" required></textarea>
+        </label>
+
+        <label class="field">
+          <span>已有技能</span>
+          <textarea name="skill_tree_existing" rows="2" required></textarea>
+        </label>
+
+        <label class="field">
+          <span>待解锁技能</span>
+          <textarea name="skill_tree_unlock" rows="2" required></textarea>
+        </label>
+
+        <label class="field">
+          <span>资源网络</span>
+          <textarea name="resource_network" rows="2" required></textarea>
+        </label>
+
+        <label class="field">
+          <span>性格标签</span>
+          <textarea name="personality_tags" rows="2" required></textarea>
+        </label>
+
+        <div class="grid">
+          <label class="field">
+            <span>第一阶段</span>
+            <select name="phase_duration">
+              <option value="7天">7 天</option>
+              <option value="30天" selected>30 天</option>
+              <option value="90天">90 天</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>每日精力值</span>
+            <input name="daily_energy_hours" placeholder="工作日 3 小时，周末 5 小时" required />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>可投入时间段</span>
+          <textarea name="time_blocks" rows="2" placeholder="工作日 20:00-23:00；周末 10:00-12:00, 14:00-17:00" required></textarea>
+        </label>
+
+        <fieldset class="style-switch">
+          <legend>PUA 引擎模式</legend>
+          <label><input type="radio" name="style" value="strict" checked /> 严师模式</label>
+          <label><input type="radio" name="style" value="sarcastic" /> 毒舌模式</label>
+          <label><input type="radio" name="style" value="hype" /> 鸡汤模式</label>
+        </fieldset>
+
+        <div class="actions">
+          <button type="submit">生成预览</button>
+          <button type="button" id="fill-sample" class="ghost">填充示例</button>
+          <button type="button" id="export-json" class="ghost">导出 JSON</button>
+        </div>
+      </form>
+
+      <section class="panel result-panel">
+        <div class="result-head">
+          <h2>测试预览</h2>
+          <p id="status-text">先填艺人档案，再看排程。</p>
+        </div>
+        <pre id="result-box">等待生成…</pre>
+      </section>
+    </main>
+
+    <script src="./popup.js"></script>
+  </body>
+</html>

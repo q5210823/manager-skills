@@ -7,12 +7,15 @@ const fillSampleButton = document.getElementById("fill-sample");
 const sample = {
   name: "王牌经纪人",
   slug: "",
-  long_term_goal: "6 个月内把自己打造成有明确定位的个人品牌，并获得第一批商业合作",
-  current_identity: "上班中的产品经理，正在做自媒体起步",
-  current_resources: "有行业经验，会写内容，会基础剪辑，已有少量粉丝基础",
-  current_projects: "内容选题、账号更新、咨询服务打磨",
-  daily_time_budget: "工作日晚上 2 小时，周末每天 4 小时",
-  style: "professional",
+  long_term_goal: "90 天内把自己打造成有明确定位的个人品牌，稳定更新内容，并拿到第一批商业合作",
+  skill_tree_existing: "写作、产品思维、基础剪辑、选题策划",
+  skill_tree_unlock: "直播表达、商业化销售、社群运营",
+  resource_network: "已有少量粉丝基础、行业经验、基础审美、一些潜在合作人脉、工作日晚间时间",
+  personality_tags: "冲劲强但容易三分钟热度、自律但会完美主义、容易在低反馈时怀疑自己",
+  phase_duration: "30天",
+  daily_energy_hours: "工作日 3 小时，周末 5 小时",
+  time_blocks: "工作日 20:00-23:00；周末 10:00-12:00, 14:00-17:00",
+  style: "strict",
 };
 
 function setStatus(text) {
@@ -52,13 +55,16 @@ form.addEventListener("submit", async (event) => {
   const payload = {
     name: data.get("name") || "王牌经纪人",
     slug: data.get("slug") || "",
-    style: data.get("style") || "professional",
+    style: data.get("style") || "strict",
     profile: {
       long_term_goal: data.get("long_term_goal") || "",
-      current_identity: data.get("current_identity") || "",
-      current_resources: data.get("current_resources") || "",
-      current_projects: data.get("current_projects") || "",
-      daily_time_budget: data.get("daily_time_budget") || "",
+      skill_tree_existing: data.get("skill_tree_existing") || "",
+      skill_tree_unlock: data.get("skill_tree_unlock") || "",
+      resource_network: data.get("resource_network") || "",
+      personality_tags: data.get("personality_tags") || "",
+      phase_duration: data.get("phase_duration") || "30天",
+      daily_energy_hours: data.get("daily_energy_hours") || "",
+      time_blocks: data.get("time_blocks") || "",
     },
   };
 
