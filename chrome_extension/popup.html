@@ -11,7 +11,7 @@
       <section class="hero">
         <p class="eyebrow">manager.skills</p>
         <h1>先立艺人档案，再排通告。</h1>
-        <p class="lede">Chrome 插件版先做基础测试：录入、预览、保存草稿、导出 JSON。</p>
+        <p class="lede">点击插件就开新标签页，先做录入、预览、保存草稿、导出 JSON 的基础测试。</p>
       </section>
 
       <form id="manager-form" class="panel form-panel">
@@ -25,10 +25,27 @@
           <textarea name="long_term_goal" rows="3" required></textarea>
         </label>
 
-        <label class="field">
+        <section class="field">
           <span>已有技能</span>
-          <textarea name="skill_tree_existing" rows="2" required></textarea>
-        </label>
+          <p class="hint">可多选，也可手动补充，比如：小红书博主、独立艺术家、策展人。</p>
+          <input class="tag-search-input" data-target="skill_tree_existing" placeholder="搜索已有技能标签" />
+          <div class="tag-picker" data-target="skill_tree_existing" data-kind="chips">
+            <button type="button" class="tag-chip" data-value="写作">写作</button>
+            <button type="button" class="tag-chip" data-value="选题策划">选题策划</button>
+            <button type="button" class="tag-chip" data-value="小红书博主">小红书博主</button>
+            <button type="button" class="tag-chip" data-value="独立艺术家">独立艺术家</button>
+            <button type="button" class="tag-chip" data-value="策展人">策展人</button>
+            <button type="button" class="tag-chip" data-value="品牌表达">品牌表达</button>
+            <button type="button" class="tag-chip" data-value="基础剪辑">基础剪辑</button>
+            <button type="button" class="tag-chip" data-value="镜头表达">镜头表达</button>
+            <button type="button" class="tag-chip" data-value="摄影">摄影</button>
+            <button type="button" class="tag-chip" data-value="播客主持">播客主持</button>
+            <button type="button" class="tag-chip" data-value="独立策展">独立策展</button>
+          </div>
+          <input class="custom-tag-input" data-target="skill_tree_existing" placeholder="输入自定义技能后回车" />
+          <div class="selected-tags" data-target="skill_tree_existing"></div>
+          <input type="hidden" name="skill_tree_existing" required />
+        </section>
 
         <label class="field">
           <span>待解锁技能</span>
@@ -37,13 +54,28 @@
 
         <label class="field">
           <span>资源网络</span>
+          <p class="hint">可以写平台资源、人脉资源、商业资源、内容资源、时间资源。例：已有 3000 粉账号、认识 2 位品牌主理人、每周末有完整半天。</p>
           <textarea name="resource_network" rows="2" required></textarea>
         </label>
 
-        <label class="field">
+        <section class="field">
           <span>性格标签</span>
-          <textarea name="personality_tags" rows="2" required></textarea>
-        </label>
+          <p class="hint">可多选，也可手动补充，尽量写执行和情绪相关标签。</p>
+          <input class="tag-search-input" data-target="personality_tags" placeholder="搜索性格标签" />
+          <div class="tag-picker" data-target="personality_tags" data-kind="chips">
+            <button type="button" class="tag-chip" data-value="冲劲强但容易三分钟热度">冲劲强但容易三分钟热度</button>
+            <button type="button" class="tag-chip" data-value="自律但会完美主义">自律但会完美主义</button>
+            <button type="button" class="tag-chip" data-value="容易在低反馈时怀疑自己">容易在低反馈时怀疑自己</button>
+            <button type="button" class="tag-chip" data-value="执行力强但怕失败">执行力强但怕失败</button>
+            <button type="button" class="tag-chip" data-value="擅长爆发不擅长稳定">擅长爆发不擅长稳定</button>
+            <button type="button" class="tag-chip" data-value="需要外部压力">需要外部压力</button>
+            <button type="button" class="tag-chip" data-value="低落时需要鼓励">低落时需要鼓励</button>
+            <button type="button" class="tag-chip" data-value="容易被比较刺激">容易被比较刺激</button>
+          </div>
+          <input class="custom-tag-input" data-target="personality_tags" placeholder="输入自定义性格标签后回车" />
+          <div class="selected-tags" data-target="personality_tags"></div>
+          <input type="hidden" name="personality_tags" required />
+        </section>
 
         <div class="grid">
           <label class="field">
@@ -60,16 +92,39 @@
           </label>
         </div>
 
-        <label class="field">
+        <section class="field">
           <span>可投入时间段</span>
-          <textarea name="time_blocks" rows="2" placeholder="工作日 20:00-23:00；周末 10:00-12:00, 14:00-17:00" required></textarea>
-        </label>
+          <p class="hint">先点选常用时段，也可手动补充额外时间块。</p>
+          <div class="time-block-group">
+            <p class="subhead">工作日</p>
+            <div class="tag-picker" data-target="time_blocks" data-group="workday" data-kind="blocks">
+              <button type="button" class="tag-chip" data-value="工作日 07:00-08:00">07:00-08:00</button>
+              <button type="button" class="tag-chip" data-value="工作日 12:00-13:00">12:00-13:00</button>
+              <button type="button" class="tag-chip" data-value="工作日 19:00-21:00">19:00-21:00</button>
+              <button type="button" class="tag-chip" data-value="工作日 20:00-22:00">20:00-22:00</button>
+              <button type="button" class="tag-chip" data-value="工作日 20:00-23:00">20:00-23:00</button>
+            </div>
+          </div>
+          <div class="time-block-group">
+            <p class="subhead">周末</p>
+            <div class="tag-picker" data-target="time_blocks" data-group="weekend" data-kind="blocks">
+              <button type="button" class="tag-chip" data-value="周末 09:00-11:00">09:00-11:00</button>
+              <button type="button" class="tag-chip" data-value="周末 10:00-12:00">10:00-12:00</button>
+              <button type="button" class="tag-chip" data-value="周末 14:00-17:00">14:00-17:00</button>
+              <button type="button" class="tag-chip" data-value="周末 15:00-18:00">15:00-18:00</button>
+              <button type="button" class="tag-chip" data-value="周末 19:00-22:00">19:00-22:00</button>
+            </div>
+          </div>
+          <input class="custom-tag-input" data-target="time_blocks" placeholder="输入自定义时间段后回车，如 工作日 12:00-13:00" />
+          <div class="selected-tags" data-target="time_blocks"></div>
+          <input type="hidden" name="time_blocks" required />
+        </section>
 
         <fieldset class="style-switch">
           <legend>PUA 引擎模式</legend>
-          <label><input type="radio" name="style" value="strict" checked /> 严师模式</label>
-          <label><input type="radio" name="style" value="sarcastic" /> 毒舌模式</label>
-          <label><input type="radio" name="style" value="hype" /> 鸡汤模式</label>
+          <label class="mode-item"><input type="radio" name="style" value="strict" checked /> 严师模式 <span class="tooltip" data-tip="冷酷、直接、骂醒你。适合拖延、找借口、不打卡时。">?</span></label>
+          <label class="mode-item"><input type="radio" name="style" value="sarcastic" /> 毒舌模式 <span class="tooltip" data-tip="阴阳怪气、sarcastic。适合自满、虚假忙碌、需要清醒时。">?</span></label>
+          <label class="mode-item"><input type="radio" name="style" value="hype" /> 鸡汤模式 <span class="tooltip" data-tip="打鸡血、画大饼。适合低落、想放弃、需要续命时。">?</span></label>
         </fieldset>
 
         <div class="actions">
@@ -81,10 +136,12 @@
 
       <section class="panel result-panel">
         <div class="result-head">
-          <h2>测试预览</h2>
-          <p id="status-text">先填艺人档案，再看排程。</p>
+          <div>
+            <h2>通告单预览</h2>
+            <p id="status-text">先填艺人档案，再生成今天的经纪人通告。</p>
+          </div>
         </div>
-        <pre id="result-box">等待生成…</pre>
+        <div id="result-box" class="call-sheet">等待生成…</div>
       </section>
     </main>
 
