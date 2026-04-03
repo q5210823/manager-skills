@@ -47,16 +47,52 @@
           <input type="hidden" name="skill_tree_existing" required />
         </section>
 
-        <label class="field">
+        <section class="field">
           <span>待解锁技能</span>
-          <textarea name="skill_tree_unlock" rows="2" required></textarea>
-        </label>
+          <p class="hint">可多选，也可手动补充，尽量选择当前阶段最想解锁的能力。</p>
+          <input class="tag-search-input" data-target="skill_tree_unlock" placeholder="搜索待解锁技能标签" />
+          <div class="tag-picker" data-target="skill_tree_unlock" data-kind="chips">
+            <button type="button" class="tag-chip" data-value="直播表达">直播表达</button>
+            <button type="button" class="tag-chip" data-value="商业化销售">商业化销售</button>
+            <button type="button" class="tag-chip" data-value="社群运营">社群运营</button>
+            <button type="button" class="tag-chip" data-value="品牌合作洽谈">品牌合作洽谈</button>
+            <button type="button" class="tag-chip" data-value="镜头表现力">镜头表现力</button>
+            <button type="button" class="tag-chip" data-value="数据复盘">数据复盘</button>
+            <button type="button" class="tag-chip" data-value="内容商业化">内容商业化</button>
+            <button type="button" class="tag-chip" data-value="产品化设计">产品化设计</button>
+          </div>
+          <input class="custom-tag-input" data-target="skill_tree_unlock" placeholder="输入自定义待解锁技能后回车" />
+          <div class="selected-tags" data-target="skill_tree_unlock"></div>
+          <input type="hidden" name="skill_tree_unlock" required />
+        </section>
 
-        <label class="field">
+        <section class="field">
           <span>资源网络</span>
-          <p class="hint">可以写平台资源、人脉资源、商业资源、内容资源、时间资源。例：已有 3000 粉账号、认识 2 位品牌主理人、每周末有完整半天。</p>
-          <textarea name="resource_network" rows="2" required></textarea>
-        </label>
+          <p class="hint">拆开填写会更准确：平台、人脉、商业、内容、时间资源分别写。</p>
+          <div class="resource-grid">
+            <label class="field resource-field">
+              <span>平台资源</span>
+              <input name="resource_platform" placeholder="例：小红书 3000 粉账号" />
+            </label>
+            <label class="field resource-field">
+              <span>人脉资源</span>
+              <input name="resource_network_people" placeholder="例：认识 2 位品牌主理人" />
+            </label>
+            <label class="field resource-field">
+              <span>商业资源</span>
+              <input name="resource_business" placeholder="例：已有潜在合作线索" />
+            </label>
+            <label class="field resource-field">
+              <span>内容资源</span>
+              <input name="resource_content" placeholder="例：已有选题库和内容素材" />
+            </label>
+            <label class="field resource-field resource-field-wide">
+              <span>时间资源</span>
+              <input name="resource_time" placeholder="例：工作日晚间固定 3 小时，周末半天" />
+            </label>
+          </div>
+          <input type="hidden" name="resource_network" required />
+        </section>
 
         <section class="field">
           <span>性格标签</span>

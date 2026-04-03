@@ -10,8 +10,9 @@
 
 <br>
 
-Provide your long-term goal, current identity, current resources, active projects, and daily time budget,<br>
-and generate an AI manager Skill that plans, pushes, reviews, and applies pressure when needed.
+Build an “artist profile” first, then generate phase sprints, hourly call sheets,
+PUA modes, daily reports, and check-in areas.  
+Supports OpenClaw / Claude Code skill workflows and also ships with a Chrome extension prototype for testing.
 
 [Install](#install) · [Usage](#usage) · [Demo](#demo) · [Features](#features) · [Project Structure](#project-structure) · [中文](README.md)
 
@@ -23,12 +24,13 @@ and generate an AI manager Skill that plans, pushes, reviews, and applies pressu
 
 Most people do not lack goals. They lack someone consistently managing their momentum.
 
-`manager.skills` is not a normal to-do tool and not a generic assistant. It is built to:
+`manager.skills` is not a normal to-do tool and not a generic assistant. It is designed to:
 
-1. decide what deserves attention
-2. break long-term goals into weekly and daily actions
-3. call out delay directly
-4. enforce a review loop and course-correct constantly
+1. build an artist-style profile
+2. break growth into 7 / 30 / 90 day phase sprints
+3. generate hourly daily call sheets
+4. switch between different pressure modes
+5. maintain rhythm through reports, check-ins, reviews, and accountability
 
 In one sentence:
 
@@ -36,36 +38,22 @@ In one sentence:
 
 ---
 
-## V1 Scope
+## Current Capabilities
 
-V1 focuses on the smallest useful loop:
+The current version already supports:
 
-1. collect 5 fixed inputs
-2. generate a manager persona
-3. generate strategy, weekly priorities, and daily briefs
-4. provide 3 pressure modes
-5. generate daily review rules
-
-V1 does not include:
-
-1. calendar sync
-2. Chrome extension UI
-3. external platform auto-ingestion
-4. multi-role collaboration
-
----
-
-## Inputs
-
-V1 only uses these 5 fields:
-
-1. `long_term_goal`
-2. `current_identity`
-3. `current_resources`
-4. `current_projects`
-5. `daily_time_budget`
-
-The more concrete the input is, the more usable the generated manager becomes.
+1. `Artist Profile Intake`
+   long-term goal, existing skills, unlock skills, resource network, personality tags, phase duration, energy budget, time blocks
+2. `Phase Sprints`
+   supports `7 days / 30 days / 90 days`
+3. `Call Sheet Preview`
+   generates a manager-style structured schedule preview
+4. `PUA Engine`
+   supports `Strict / Sarcastic / Hype`
+5. `Daily Report / Check-in Sections`
+   visible directly inside the extension preview
+6. `OpenClaw Feishu Sync Tool`
+   handled via local tooling instead of the Chrome extension
 
 ---
 
@@ -94,66 +82,36 @@ pip3 install -r requirements.txt
 
 ## Usage
 
+### 1. Skill Entry
+
 Invoke:
 
 ```text
 /create-manager
 ```
 
-Then provide:
+The updated flow builds an artist profile first, then moves into phase planning and call-sheet generation.
 
-1. long-term goal
-2. current identity
-3. current resources
-4. current projects
-5. daily time budget
+### 2. Chrome Extension Testing
 
-Generated manager Skills are stored under:
+The repository root already includes a `manifest.json`, so you can load the entire repo directly in Chrome:
 
-```text
-./managers/{slug}/
-```
+1. open `chrome://extensions/`
+2. enable Developer Mode
+3. click “Load unpacked”
+4. choose the repo root directory
 
----
+Clicking the extension icon opens a new tab for testing.
 
-## Local Entry Points
+### 3. OpenClaw Feishu Sync
 
-### 1. CLI
-
-Generate a minimal manager directly from JSON:
+Feishu sync is implemented in local tooling, not inside the Chrome extension:
 
 ```bash
-python3 tools/create_manager.py --input managers/sample_manager_input.json
+python3 tools/feishu_calendar_sync.py --setup
+python3 tools/feishu_calendar_sync.py --list-calendars
+python3 tools/feishu_calendar_sync.py --input managers/sample_manager_input.json --manager-name "Ace Manager"
 ```
-
-### 2. Local Web Form
-
-Run the local browser form:
-
-```bash
-python3 tools/manager_web.py
-```
-
-Then open [http://127.0.0.1:8765](http://127.0.0.1:8765).
-
----
-
-## Outputs
-
-Each generated manager Skill is expected to produce:
-
-1. a manager profile
-2. weekly priorities
-3. daily task briefs
-4. progress push messages
-5. daily review prompts
-
-High-pressure mode is allowed to be sharper, but still bounded:
-
-1. it can call out delay and excuses
-2. it can highlight opportunity cost
-3. it does not use personal humiliation
-4. it does not spiral into uncontrolled verbal attack
 
 ---
 
@@ -161,20 +119,20 @@ High-pressure mode is allowed to be sharper, but still bounded:
 
 > Input:
 >
-> `Build a clearly positioned personal brand within 6 months and land the first batch of paid collaborations`
+> `Build a clearly positioned personal brand within 90 days, publish consistently, and land the first batch of paid collaborations`
 >
-> `Full-time product manager, currently starting a content brand`
+> `Existing skills: writing, Xiaohongshu creator, basic editing`
 >
-> `Industry experience, writing skills, basic video editing, and an early audience`
+> `Unlock skills: live presence, sales, community operations`
 
-**Scenario 1: Daily Brief**
+**Scenario 1: Daily Call Sheet**
 
 ```text
-manager.skills ❯ No grandstanding today. Only 3 actions that actually move the needle:
+manager.skills ❯ No grandstanding today. Only 3 time blocks:
 
-                1. Lock your one-line positioning statement
-                2. Finish and publish one piece of content
-                3. Make your consulting intro page good enough to send out
+                20:00-22:00  Core output - Writing
+                22:00-23:00  Upgrade training - Live presence
+                23:00-23:30  Daily review and check-in
 
                 No visible output means no real progress.
 ```
@@ -189,7 +147,7 @@ manager.skills ❯ That was preparation, not progress.
                 it was just a more respectable-looking delay.
 ```
 
-**Scenario 3: Review**
+**Scenario 3: Daily Report**
 
 ```text
 manager.skills ❯ The biggest mistake today was not that you failed to finish.
@@ -207,27 +165,43 @@ Each manager Skill has two parts:
 
 | Part | Content |
 |------|---------|
-| **Part A — Execution System** | Stage judgment, weekly priorities, daily task rules, review rules |
-| **Part B — Persona** | Role framing, speaking style, pressure modes, behavior boundaries |
+| **Part A — Artist Management System** | artist profile, phase sprints, hourly call sheets, daily reports, check-ins, accountability and rewards |
+| **Part B — Persona / PUA Engine** | role framing, speaking style, strict / sarcastic / hype modes, review voice |
 
 Execution flow:
 
-`Receive goal or problem -> Execution System decides what matters most -> Persona chooses tone and pressure -> manager-style response`
+`Receive goal or problem -> management system decides what matters most -> persona chooses tone and pressure -> manager-style response`
 
-### Pressure Modes
+### Chrome Extension Interaction
 
-1. `Gentle`
-   Best for building rhythm
-2. `Professional`
-   Best for normal planning and follow-up
-3. `High Pressure`
-   Best for repeated delay or high-stakes moments
+The current extension prototype already supports:
 
-### Evolution
+1. searchable tags
+2. multi-select tags with custom additions
+3. separate workday / weekend time blocks
+4. open-on-click in a new tab
+5. call-sheet style preview
+6. daily report and check-in sections
 
-1. append new information -> merge with `merger.md`
-2. conversational correction -> write to the `Correction` layer
-3. version management -> update and rollback support
+### PUA Engine
+
+Supports three modes:
+
+1. `Strict`
+   cold, direct, wake-you-up mode
+2. `Sarcastic`
+   sharp, ironic, clears delusion
+3. `Hype`
+   motivational, dramatic, keeps momentum alive
+
+### Feishu Sync
+
+Feishu sync is implemented in OpenClaw / local tools, not the Chrome extension:
+
+1. configure calendar credentials
+2. list existing calendars
+3. generate time blocks from the artist profile and sync them to Feishu calendar
+4. provide clearer failure diagnostics when sync breaks
 
 ---
 
@@ -237,13 +211,26 @@ This repository root is itself an installable skill directory:
 
 ```text
 manager-skills/
+├── manifest.json
 ├── SKILL.md
 ├── README.md
 ├── README_EN.md
 ├── INSTALL.md
 ├── prompts/
 ├── tools/
+│   ├── create_manager.py
+│   ├── manager_web.py
+│   ├── feishu_calendar_sync.py
+│   ├── skill_writer.py
+│   └── version_manager.py
+├── chrome_extension/
+│   ├── background.js
+│   ├── popup.html
+│   ├── popup.css
+│   └── popup.js
 ├── managers/
+│   ├── example_artist_manager/
+│   └── sample_manager_input.json
 ├── docs/
 ├── web/
 └── LICENSE

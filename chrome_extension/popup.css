@@ -77,6 +77,20 @@ body[data-mode="tab"] {
   gap: 12px;
 }
 
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+}
+
+.resource-field {
+  margin-bottom: 0;
+}
+
+.resource-field-wide {
+  grid-column: 1 / -1;
+}
+
 .field {
   display: block;
   margin-bottom: 12px;
@@ -407,6 +421,7 @@ button[type="submit"] {
 }
 
 @media (max-width: 780px) {
+  .resource-grid,
   .call-sheet-header,
   .call-sheet-board,
   .call-sheet-row {

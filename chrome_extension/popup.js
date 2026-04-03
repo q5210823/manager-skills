@@ -14,7 +14,11 @@ const sample = {
   long_term_goal: "90 天内把自己打造成有明确定位的个人品牌，稳定更新内容，并拿到第一批商业合作",
   skill_tree_existing: "写作、小红书博主、基础剪辑、策展人",
   skill_tree_unlock: "直播表达、商业化销售、社群运营",
-  resource_network: "已有少量粉丝基础、行业经验、基础审美、一些潜在合作人脉、工作日晚间时间",
+  resource_platform: "小红书 3000 粉账号",
+  resource_network_people: "认识 2 位品牌主理人",
+  resource_business: "已有潜在合作线索",
+  resource_content: "已有选题库和内容素材",
+  resource_time: "工作日晚间固定 3 小时，周末半天",
   personality_tags: "冲劲强但容易三分钟热度、自律但会完美主义、容易在低反馈时怀疑自己、需要外部压力",
   phase_duration: "30天",
   daily_energy_hours: "工作日 3 小时，周末 5 小时",
@@ -24,6 +28,7 @@ const sample = {
 
 const tagState = {
   skill_tree_existing: [],
+  skill_tree_unlock: [],
   personality_tags: [],
   time_blocks: [],
 };
@@ -64,7 +69,13 @@ function buildPreview(payload) {
   const profile = payload.profile;
   const existing = parseList(profile.skill_tree_existing);
   const unlock = parseList(profile.skill_tree_unlock);
-  const resources = parseList(profile.resource_network);
+  const resources = [
+    profile.resource_platform,
+    profile.resource_network_people,
+    profile.resource_business,
+    profile.resource_content,
+    profile.resource_time,
+  ].filter(Boolean);
   const [modeName, modeLine] = modeCopy(payload.style);
   const blocks = profile.time_blocks.match(/\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}/g) || [];
 
@@ -91,6 +102,7 @@ function buildPreview(payload) {
   });
 
   const skillsMarkup = existing.map((item) => `<span class="selected-tag"><span>${item}</span></span>`).join("");
+  const unlockMarkup = unlock.map((item) => `<span class="selected-tag"><span>${item}</span></span>`).join("");
   const tagsMarkup = parseList(profile.personality_tags).map((item) => `<span class="selected-tag"><span>${item}</span></span>`).join("");
   const scheduleMarkup = schedule.map((item) => `
     <div class="call-sheet-row">
@@ -154,6 +166,20 @@ function buildPreview(payload) {
         <h3>性格标签</h3>
         <div class="selected-tags">${tagsMarkup || '<span class="call-sheet-placeholder">暂未选择</span>'}</div>
       </section>
+      <section class="call-sheet-card">
+        <h3>待解锁技能</h3>
+        <div class="selected-tags">${unlockMarkup || '<span class="call-sheet-placeholder">暂未选择</span>'}</div>
+      </section>
+      <section class="call-sheet-card">
+        <h3>资源网络拆解</h3>
+        <ul>
+          <li><strong>平台：</strong>${profile.resource_platform || "暂无"}</li>
+          <li><strong>人脉：</strong>${profile.resource_network_people || "暂无"}</li>
+          <li><strong>商业：</strong>${profile.resource_business || "暂无"}</li>
+          <li><strong>内容：</strong>${profile.resource_content || "暂无"}</li>
+          <li><strong>时间：</strong>${profile.resource_time || "暂无"}</li>
+        </ul>
+      </section>
     </div>
 
     <section class="call-sheet-schedule">
@@ -186,6 +212,13 @@ function buildPreview(payload) {
 
 function collectPayload() {
   const data = new FormData(form);
+  const resourceParts = [
+    data.get("resource_platform") || "",
+    data.get("resource_network_people") || "",
+    data.get("resource_business") || "",
+    data.get("resource_content") || "",
+    data.get("resource_time") || "",
+  ].filter(Boolean);
   return {
     name: data.get("name") || "王牌经纪人",
     style: data.get("style") || "strict",
@@ -193,7 +226,12 @@ function collectPayload() {
       long_term_goal: data.get("long_term_goal") || "",
       skill_tree_existing: data.get("skill_tree_existing") || "",
       skill_tree_unlock: data.get("skill_tree_unlock") || "",
-      resource_network: data.get("resource_network") || "",
+      resource_platform: data.get("resource_platform") || "",
+      resource_network_people: data.get("resource_network_people") || "",
+      resource_business: data.get("resource_business") || "",
+      resource_content: data.get("resource_content") || "",
+      resource_time: data.get("resource_time") || "",
+      resource_network: resourceParts.join("、"),
       personality_tags: data.get("personality_tags") || "",
       phase_duration: data.get("phase_duration") || "30天",
       daily_energy_hours: data.get("daily_energy_hours") || "",
@@ -253,6 +291,7 @@ function fillForm(data) {
     node.value = value;
   });
   setTagValues("skill_tree_existing", parseList(data.skill_tree_existing || ""));
+  setTagValues("skill_tree_unlock", parseList(data.skill_tree_unlock || ""));
   setTagValues("personality_tags", parseList(data.personality_tags || ""));
   setTagValues("time_blocks", parseList((data.time_blocks || "").replace(/；/g, "、")));
 }
